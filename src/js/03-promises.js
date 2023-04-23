@@ -8,19 +8,6 @@ form.addEventListener('submit', function (event) {
   const step = parseInt(form.elements['step'].value);
   let delay = parseInt(form.elements['delay'].value);
 
-  function createPromise(position, delay) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const shouldResolve = Math.random() > 0.3;
-        if (shouldResolve) {
-          resolve({ position, delay });
-        } else {
-          reject({ position, delay });
-        }
-      }, delay);
-    });
-  }
-
   for (let i = 1; i <= amount; i++) {
     createPromise(i, delay)
       .then(result =>
@@ -35,4 +22,19 @@ form.addEventListener('submit', function (event) {
       );
     delay += step;
   }
+
+  form.reset();
 });
+
+function createPromise(position, delay) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldResolve = Math.random() > 0.3;
+      if (shouldResolve) {
+        resolve({ position, delay });
+      } else {
+        reject({ position, delay });
+      }
+    }, delay);
+  });
+}
